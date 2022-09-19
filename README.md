@@ -86,8 +86,13 @@ kubectl create secret generic user-wordpress-secret --from-literal=user-wordpres
 kubectl create secret generic user-wordpress-secret --from-literal=mysql-password=wordpress -n namespace-mysql --dry-run=client -o yaml > mysql-dbuser-secret.yaml
 ```
 
-Un problème subsiste avec une erreur des secret clés (a debeuger)
+** !!! Un problème subsiste avec une erreur des secret clés (a debeuger) !!! **
 
+Lancer le projet
+
+```bash
+kubectl apply -f .
+```
 
 *Suite à de nombreux problème ou j'ai du passer plus de temps a débeuger K8S ou minikube. (Problème, blocage de la vm, perte de perf, minikube qui ne se lance plus.*
 
