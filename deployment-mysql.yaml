@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: deployment-mysql
+  name: deployment-mysql
+  namespace: namespace-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deployment-mysql
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: deployment-mysql
+    spec:
+      containers:
+      - image: mysql:8.0
+        name: deployment-mysql
+        env:
+        - name: MYSQL_RANDOM_ROOT_PASSWORD
+          value: '1'
+        - name: MYSQL_DATABASE
+          value: wordpress
+        - name: WORDPRESS_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: user-wordpress-secret
+              key: mysql-password
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: pv-mysql
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: pv-mysql
+        hostPath:
+          path: /data/mysql
+        
